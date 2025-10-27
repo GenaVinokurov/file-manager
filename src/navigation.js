@@ -9,10 +9,11 @@ import { resolvePath, pathExists } from "./utils.js";
  * @returns {Promise<string>} - New working directory
  */
 export const up = async (currentDir) => {
-  // TODO: Implement going up one level
-  // Use path.resolve(currentDir, '..')
-  // Check if we're not trying to go above root
-  throw new Error("Not implemented");
+  const rootDir = path.parse(currentDir).root;
+  if (currentDir === rootDir) {
+    return currentDir;
+  }
+  return path.resolve(currentDir, "..");
 };
 
 /**
@@ -22,6 +23,10 @@ export const up = async (currentDir) => {
  * @returns {Promise<string>} - New working directory
  */
 export const cd = async (currentDir, targetPath) => {
+  const rootDir = path.parse(currentDir).root;
+  if (currentDir === rootDir) {
+    return currentDir;
+  }
   const newDir = resolvePath(currentDir, targetPath);
   if (await pathExists(newDir)) {
     return newDir;
