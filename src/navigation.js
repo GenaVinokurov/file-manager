@@ -44,7 +44,7 @@ export const ls = async (currentDir) => {
     .then((files) => files.sort((a, b) => a.name - b.name));
   console.table(
     files.map((el) => ({
-      name: `${el.name}${el.isDirectory() ? "" : path.extname(el.name)}`,
+      name: el.name,
       type: el.isDirectory() ? "directory" : "file",
     }))
   );
