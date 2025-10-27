@@ -1,0 +1,21 @@
+{
+  "name": "file-manager",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/GenaVinokurov/file-manager#readme",
+  "bugs": {
+    "url": "https://github.com/GenaVinokurov/file-manager/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GenaVinokurov/file-manager.git"
+  },
+  "license": "ISC",
+  "author": "genavinokurov",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js -- --username=gena"
+  }
+}
