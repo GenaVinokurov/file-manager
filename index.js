@@ -190,8 +190,7 @@ const start = async () => {
           if (args.length < 1) {
             handleInvalidInput();
           } else {
-            const hash = await calculateHash(args[0]);
-            console.log(hash);
+            await calculateHash(currentDir, args[0]);
           }
           break;
 

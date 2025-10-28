@@ -1,16 +1,24 @@
 import crypto from "crypto";
 import { createReadStream } from "fs";
+import path from "path";
 
-/**
- * Calculate hash for file
- * @param {string} filePath - Path to file
- * @returns {Promise<string>} - Hex hash string
- */
-export const calculateHash = async (filePath) => {
-  // TODO: Implement hash calculation
-  // Create read stream from file
-  // Create hash (sha256)
-  // Update hash with stream data
-  // Return final hash digest as hex
-  throw new Error("Not implemented");
+export const calculateHash = async (currentDir, filePath) => {
+  const stream = createReadStream(path.join(currentDir, filePath));
+  const hash = crypto.createHash("sha256");
+
+  return new Promise((resolve, reject) => {
+    stream.on("data", (chunk) => {
+      hash.update(chunk);
+    });
+
+    stream.on("end", () => {
+      const result = hash.digest("hex");
+      console.log("Hash:", result);
+      resolve(result);
+    });
+
+    stream.on("error", (error) => {
+      reject(error);
+    });
+  });
 };
