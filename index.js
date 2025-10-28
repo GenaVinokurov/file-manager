@@ -63,7 +63,6 @@ const start = async () => {
 
   // Handle user input
   rl.on("line", async (input) => {
-    console.log("sssss", input);
     const trimmedInput = input.trim();
 
     // Handle exit command
@@ -106,7 +105,7 @@ const start = async () => {
           if (args.length < 1) {
             handleInvalidInput();
           } else {
-            await cat(args[0]);
+            await cat(currentDir, args[0]);
           }
           break;
 
@@ -130,7 +129,8 @@ const start = async () => {
           if (args.length < 2) {
             handleInvalidInput();
           } else {
-            await rn(args[0], args[1]);
+            console.log("rn args", args);
+            await rn(currentDir, args[0], args[1]);
           }
           break;
 
@@ -138,7 +138,7 @@ const start = async () => {
           if (args.length < 2) {
             handleInvalidInput();
           } else {
-            await cp(args[0], args[1]);
+            await cp(currentDir, args[0], args[1]);
           }
           break;
 
@@ -146,7 +146,7 @@ const start = async () => {
           if (args.length < 2) {
             handleInvalidInput();
           } else {
-            await mv(args[0], args[1]);
+            await mv(currentDir, args[0], args[1]);
           }
           break;
 
@@ -154,7 +154,7 @@ const start = async () => {
           if (args.length < 1) {
             handleInvalidInput();
           } else {
-            await rm(args[0]);
+            await rm(currentDir, args[0]);
           }
           break;
 

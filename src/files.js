@@ -8,11 +8,14 @@ import { pipeline } from "stream/promises";
  * @param {string} filePath - Path to file
  * @returns {Promise<void>}
  */
-export const cat = async (filePath) => {
-  // TODO: Implement reading file with streams
-  // Create readable stream
-  // Pipe to process.stdout
-  throw new Error("Not implemented");
+export const cat = async (currentDir, filePath) => {
+  const fullPath = path.resolve(currentDir, filePath);
+  const stream = createReadStream(fullPath, { encoding: "utf-8" });
+  stream.pipe(process.stdout);
+  await new Promise((resolve, reject) => {
+    stream.on("end", resolve);
+    stream.on("error", reject);
+  });
 };
 
 /**
@@ -22,9 +25,8 @@ export const cat = async (filePath) => {
  * @returns {Promise<void>}
  */
 export const add = async (currentDir, fileName) => {
-  // TODO: Implement creating empty file
-  // Use fs.writeFile with empty content
-  throw new Error("Not implemented");
+  await fs.writeFile(path.resolve(currentDir, fileName), "");
+  console.log(`File ${fileName} created successfully`);
 };
 
 /**
@@ -34,9 +36,8 @@ export const add = async (currentDir, fileName) => {
  * @returns {Promise<void>}
  */
 export const mkdir = async (currentDir, dirName) => {
-  // TODO: Implement creating directory
-  // Use fs.mkdir
-  throw new Error("Not implemented");
+  fs.mkdir(path.resolve(currentDir, dirName));
+  console.log(`Directory ${dirName} created successfully`);
 };
 
 /**
@@ -45,11 +46,12 @@ export const mkdir = async (currentDir, dirName) => {
  * @param {string} newName - New file name
  * @returns {Promise<void>}
  */
-export const rn = async (oldPath, newName) => {
-  // TODO: Implement renaming file
-  // Use fs.rename
-  // Keep file in same directory, just change name
-  throw new Error("Not implemented");
+export const rn = async (currentDir, oldPath, newName) => {
+  fs.rename(
+    path.resolve(currentDir, oldPath),
+    path.resolve(currentDir, newName)
+  );
+  console.log(`File ${oldPath} renamed to ${newName} successfully`);
 };
 
 /**
@@ -58,12 +60,11 @@ export const rn = async (oldPath, newName) => {
  * @param {string} destination - Destination directory path
  * @returns {Promise<void>}
  */
-export const cp = async (source, destination) => {
-  // TODO: Implement copying file with streams
-  // Create read stream from source
-  // Create write stream to destination
-  // Use pipeline to pipe streams
-  throw new Error("Not implemented");
+export const cp = async (currentDir, source, destination) => {
+  const readStream = createReadStream(path.resolve(currentDir, source));
+  const writeStream = createWriteStream(path.resolve(currentDir, destination));
+  await pipeline(readStream, writeStream);
+  console.log(`File ${source} copied to ${destination} successfully`);
 };
 
 /**
@@ -72,11 +73,12 @@ export const cp = async (source, destination) => {
  * @param {string} destination - Destination directory path
  * @returns {Promise<void>}
  */
-export const mv = async (source, destination) => {
-  // TODO: Implement moving file
-  // First copy file using streams (like cp)
-  // Then delete original with fs.unlink
-  throw new Error("Not implemented");
+export const mv = async (currentDir, source, destination) => {
+  const readStream = createReadStream(path.resolve(currentDir, source));
+  const writeStream = createWriteStream(path.resolve(currentDir, destination));
+  await pipeline(readStream, writeStream);
+  await fs.unlink(path.resolve(currentDir, source));
+  console.log(`File ${source} moved to ${destination} successfully`);
 };
 
 /**
@@ -84,8 +86,7 @@ export const mv = async (source, destination) => {
  * @param {string} filePath - Path to file to delete
  * @returns {Promise<void>}
  */
-export const rm = async (filePath) => {
-  // TODO: Implement deleting file
-  // Use fs.unlink
-  throw new Error("Not implemented");
+export const rm = async (currentDir, filePath) => {
+  await fs.unlink(path.resolve(currentDir, filePath));
+  console.log(`File ${filePath} deleted successfully`);
 };

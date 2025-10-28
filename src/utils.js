@@ -71,7 +71,7 @@ export const printCurrentDir = (dir) => {
  * @param {Error} error - Error object
  */
 export const handleError = (error) => {
-  console.log("Operation failed");
+  console.log("Operation failed", error.message);
   // Optionally log error details for debugging
   // console.error(error.message);
 };
@@ -80,7 +80,7 @@ export const handleError = (error) => {
  * Handle invalid input
  */
 export const handleInvalidInput = () => {
-  console.log("Invalid input");
+  console.log("Invalid input", error.message);
 };
 
 /**
@@ -89,14 +89,8 @@ export const handleInvalidInput = () => {
  * @returns {Object} - { command, args }
  */
 export const parseCommand = (input) => {
-  // TODO: Implement command parsing
-  // Split input into command and arguments
-  // Handle spaces in paths (if needed)
   const parts = input.trim().split(/\s+/);
-  console.log("parts", parts);
   const command = parts[0];
-  console.log("command", command);
   const args = parts.slice(1);
-  console.log("args", args);
   return { command, args };
 };
