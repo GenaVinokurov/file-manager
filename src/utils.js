@@ -71,7 +71,7 @@ export const printCurrentDir = (dir) => {
  * @param {Error} error - Error object
  */
 export const handleError = (error) => {
-  console.log("Operation failed", error.message);
+  console.log("Operation failed:", error.message);
   // Optionally log error details for debugging
   // console.error(error.message);
 };
@@ -80,7 +80,7 @@ export const handleError = (error) => {
  * Handle invalid input
  */
 export const handleInvalidInput = () => {
-  console.log("Invalid input", error.message);
+  console.log("Invalid input:", error.message);
 };
 
 /**

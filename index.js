@@ -80,7 +80,6 @@ const start = async () => {
     try {
       // Parse command
       const { command, args } = parseCommand(trimmedInput);
-
       // Route to appropriate handler
       switch (command) {
         // Navigation commands
@@ -129,7 +128,6 @@ const start = async () => {
           if (args.length < 2) {
             handleInvalidInput();
           } else {
-            console.log("rn args", args);
             await rn(currentDir, args[0], args[1]);
           }
           break;
@@ -199,7 +197,7 @@ const start = async () => {
           if (args.length < 2) {
             handleInvalidInput();
           } else {
-            await compress(args[0], args[1]);
+            await compress(currentDir, args[0], args[1]);
           }
           break;
 
@@ -207,7 +205,7 @@ const start = async () => {
           if (args.length < 2) {
             handleInvalidInput();
           } else {
-            await decompress(args[0], args[1]);
+            await decompress(currentDir, args[0], args[1]);
           }
           break;
 
